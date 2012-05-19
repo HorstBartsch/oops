@@ -37,7 +37,7 @@ function oopsTypeError (errorId,message)
 	//
 	//--------------------------------------------------------------------------
 	
-	oopsRoot.register (oopsError);
+	oopsRoot.register (oopsTypeError);
 	this._extends = oopsError;
 	this._extends (errorId,message);
 	this._bind (oopsTypeError);

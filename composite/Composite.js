@@ -22,6 +22,7 @@ function oopsComposite (id)
 	/*global oopsRoot*/
 	/*global oopsComponent*/
 	/*global oopsRangeError*/
+	/*global oopsArgumentError*/
 	
 	//--------------------------------------------------------------------------
 	//
@@ -108,7 +109,12 @@ function oopsComposite (id)
 	{		
 		this._protected.isOrThrow("component", component, oopsComponent);		
 		
-		if (fromIndex === undefined || fromIndex < 0)
+		if (fromIndex === undefined)
+		{
+			fromIndex = 0;
+		}
+		
+		if (fromIndex >= this.numChildren || fromIndex < 0)
 		{			
 			throw new oopsRangeError (3000,fromIndex);
 		}
@@ -146,7 +152,12 @@ function oopsComposite (id)
 	{
 		this._protected.isOrThrow("component", component, oopsComponent);	
 		
-		if (fromIndex === undefined || fromIndex < 0)
+		if (fromIndex === undefined)
+		{
+			fromIndex = this.numChildren - 1;
+		}
+		
+		if (fromIndex >= this.numChildren || fromIndex < 0)
 		{
 			throw new oopsRangeError (3000,fromIndex);
 		}
@@ -170,6 +181,11 @@ function oopsComposite (id)
 	 */
 	this.getChildAt = function (index)
 	{
+		if (index === undefined)
+		{
+			throw new oopsArgumentError (2000, "index");
+		}
+		
 		if (index >= this.numChildren() || index < 0)
 		{
 			throw new oopsRangeError (3000, "index");
@@ -280,8 +296,13 @@ function oopsComposite (id)
 	this.addChildAt = function (component,index)
 	{
 		this._protected.isOrThrow("component", component, oopsComponent);	
-			
-		if (index >= this.numChildren || index < 0)
+		
+		if (index === undefined)
+		{
+			throw new oopsArgumentError (2000, "index");
+		}
+		
+		if (index > this.numChildren || index < 0)
 		{
 			throw new oopsRangeError (3000, "index");
 		}

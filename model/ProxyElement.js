@@ -140,7 +140,7 @@ function oopsProxyElement (proxiedElement)
 	 */
 	this.traitTypes = function ()
 	{
-		return this._super.traitTypes.concat(_proxiedElement.traitTypes);
+		return this._super.traitTypes().concat(_proxiedElement.traitTypes());
 	};
 	
 	/**
@@ -219,7 +219,7 @@ function oopsProxyElement (proxiedElement)
 	 */
 	this.getMetadata = function(key)
 	{
-		return _proxiedElement.getValueOf(key);
+		return _proxiedElement.getMetadata(key);
 	};
 	
 	/** 
@@ -240,7 +240,7 @@ function oopsProxyElement (proxiedElement)
 	 */
 	this.addMetadata = function(key,value)
 	{
-		_proxiedElement.setValue (key,value);
+		_proxiedElement.addMetadata (key,value);
 	};
 	
 	/** 
@@ -261,7 +261,7 @@ function oopsProxyElement (proxiedElement)
 	 */
 	this.removeMetadata = function(key)
 	{
-		_proxiedElement.removeValueOf (key);
+		_proxiedElement.removeMetadata (key);
 	};
 	
 	/** 

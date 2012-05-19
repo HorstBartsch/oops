@@ -43,6 +43,7 @@ function oopsElement ()
 	/*global oopsRoot*/
 	/*global oopsMetadataEvent*/
 	/*global oopsTraitEvent*/
+	/*global oopsTrait*/
 	/*global oopsEventDispatcher*/
 	/*global oopsElementType*/
 	/*global oopsResource*/
@@ -234,7 +235,7 @@ function oopsElement ()
 	 */
 	this.getMetadata = function(key)
 	{
-		return _resource.getValueOf(key);
+		return this.resource().getValueOf(key);
 	};
 	
 	/** 
@@ -253,16 +254,15 @@ function oopsElement ()
 	 */
 	this.addMetadata = function(key,value)
 	{
-		if (_resource.getValueOf(key))
+		var type = oopsMetadataEvent.ADD;
+		
+		if (this.resource().getValueOf(key))
 		{
-			this.dispatchEvent (new oopsMetadataEvent(oopsMetadataEvent.CHANGE,key,value));
-		}
-		else
-		{
-			this.dispatchEvent (new oopsMetadataEvent(oopsMetadataEvent.ADD,key,value));
+			type = oopsMetadataEvent.CHANGE;
 		}
 		
-		_resource.setValue (key,value);
+		this.resource().setValue (key,value);
+		this.dispatchEvent (new oopsMetadataEvent(type,key,value));
 	};
 	
 	/** 
@@ -279,8 +279,8 @@ function oopsElement ()
 	 */
 	this.removeMetadata = function(key)
 	{
+		this.resource().removeValueOf (key);
 		this.dispatchEvent (new oopsMetadataEvent(oopsMetadataEvent.REMOVE,key));
-		_resource.removeValueOf (key);
 	};
 	
 	/** 

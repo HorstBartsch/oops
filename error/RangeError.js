@@ -37,7 +37,7 @@ function oopsRangeError (id,message)
 	//
 	//--------------------------------------------------------------------------
 	
-	oopsRoot.register (oopsError);
+	oopsRoot.register (oopsRangeError);
 	this._extends = oopsError;
 	this._extends (id,message);
 	this._bind (oopsRangeError);

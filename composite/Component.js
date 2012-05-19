@@ -92,7 +92,7 @@ function oopsComponent (id)
 	 */
 	var setParent = function (value)
 	{
-		self._protected.isOrThrow ("value",value,oopsComposite);
+		self._protected.isOrThrow ("value",value);
 		_parent = value;
 	};
 	

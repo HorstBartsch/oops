@@ -43,7 +43,7 @@ function oopsIllegalOperationError (id,message)
 	//
 	//--------------------------------------------------------------------------
 	
-	oopsRoot.register (oopsError);
+	oopsRoot.register (oopsIllegalOperationError);
 	this._extends = oopsError;
 	this._extends (id,message);
 	this._bind (oopsIllegalOperationError);

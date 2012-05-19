@@ -47,6 +47,7 @@
 function oopsChainManager ()
 {
 	/*global Oops*/
+	/*global oopsError*/
 	
 	//--------------------------------------------------------------------------
 	//
@@ -87,12 +88,12 @@ function oopsChainManager ()
 		_numAddresses += 1;
 		
 		var token = new Date().getTime().toString().substr(-6);
-		var rand  = parseInt(Math.random() * 100).toString(); 
+		var rand  = parseInt(Math.random() * 100, 10).toString(); 
 		var index;
 		
 		for (var i = 0; i< rand.length; i+=1)
 		{
-			index = parseInt(Math.random() * token.length) - 1;
+			index = parseInt(Math.random() * token.length, 10) - 1;
 			
 			if (index < 0)
 			{
@@ -239,7 +240,7 @@ function oopsChainManager ()
         
 		//free memory and mark a new object to be garbage collected next time.
 		applyGarbageCollection (obj);
-	}
+	};
 	
 	this._protected.setInternal ("bake", bake);
 	this._protected.setInternal ("complete", complete);

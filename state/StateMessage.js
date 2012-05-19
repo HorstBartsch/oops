@@ -24,7 +24,7 @@ var oopsStateMessage =
 	 * 				It is the default message of a <i>StatusEvent</i>
 	 * 
 	 * @constant
-	 * @type String
+	 * @type uint
 	 */
 	VALID: 1,
 	
@@ -34,7 +34,7 @@ var oopsStateMessage =
 	 * 				<i>State</i> is not presented in the <i>StateContext</i>.
 	 * 
 	 * @constant
-	 * @type String
+	 * @type uint
 	 * 
 	 * @see oopsContext#translateTo
 	 */
@@ -47,7 +47,7 @@ var oopsStateMessage =
 	 * 				<i>State</i> or is not defined.
 	 * 
 	 * @constant
-	 * @type String
+	 * @type uint
 	 * 
 	 * @see oopsState#handle
 	 */
@@ -60,7 +60,7 @@ var oopsStateMessage =
 	 * 				message when you allow transition to the same state.
 	 * 
 	 * @constant
-	 * @type String
+	 * @type uint
 	 * 
 	 * @see oopsState#handle
 	 * @see oopsState#sameStateIdAllowed

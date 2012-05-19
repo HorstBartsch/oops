@@ -13,7 +13,7 @@
  * 
  * @param {String}		type	The type of the event. 
  * @param {oopsState}	state	The new state in the state machine.
- * @param {String}		message	A message you can proof if a state transition
+ * @param {uint}		message	A message you can proof if a state transition
  * 								failes. This value is optional.
  * 
  * @see oopsStateMessage
@@ -27,6 +27,7 @@ function oopsStatusEvent (type,state,message)
 	/*global oopsRoot*/
 	/*global oopsEvent*/
 	/*global oopsConst*/
+	/*global oopsState*/
 	/*global oopsStateMessage*/
 	
 	//--------------------------------------------------------------------------
@@ -104,7 +105,7 @@ function oopsStatusEvent (type,state,message)
 	 * 				has failed.
 	 * 
 	 * @default oopsStateMessage.VALID
-	 * @type String
+	 * @type uint
 	 * 
 	 * @public
 	 * @field
@@ -156,7 +157,7 @@ function oopsStatusEvent (type,state,message)
 	 * 				Initiates a new StateEvent. 
 	 * 
 	 * @param {oopsState}	state	The new state in the state machine.
-	 * @param {String}		message	A message you can proof if a state transition
+	 * @param {uint}		message	A message you can proof if a state transition
 	 * 								failes. This value is optional.
 	 * 
 	 * @throws 	{oopsArgumentError}	If the argument <i>state</i> is undefined.
@@ -166,7 +167,7 @@ function oopsStatusEvent (type,state,message)
 	 */
 	var init = function (state,message)
 	{
-		self._protected.isOrThrow ("state",state);
+		self._protected.isOrThrow ("state",state,oopsState);
 		
 		_state = state;
 		_message = (message) ?message :oopsStateMessage.VALID;

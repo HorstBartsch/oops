@@ -334,56 +334,63 @@ function Oops (weak)
 		var scope;
 		var obj;
 		var count = 0;
-		if (!index) index = 0;
 		
+		if (!index)
+		{
+			index = 0;
+		}
+				
 		for (var pkg in oops)
 		{
-			for (var cls in oops[pkg])
+			if (oops.hasOwnProperty(pkg))
 			{
-				//scope not found yet
-				if (!scope)
+				for (var cls in oops[pkg])
 				{
-					obj = oops[pkg][cls]; 
-					result = (pattern) ?evalScope (obj,pattern) :(obj.name === self.name);
-					
-					if (result)
+					//scope not found yet
+					if (!scope)
 					{
-						//retry mechanism (isMemberOf) reached
-						if (count === index)
-						{
-							//return the package signature
-							if (mode===oopsConst.PKG)
-							{
-								scope = oops[pkg];
-							}
-							
-							//return the class signature
-							else if (mode===oopsConst.CLS)
-							{
-								scope = oops[pkg][cls];
-							}
-							
-							//return the nice name of the class
-							else if (mode===oopsConst.CLS_NAME)
-							{
-								scope = cls;
-							}
-							
-							//return the name of the package
-							else if (mode===oopsConst.PKG_NAME)
-							{
-								scope = pkg;
-							}
-						}
+						obj = oops[pkg][cls]; 
+						result = (pattern) ?evalScope (obj,pattern) :(obj.name === self.name);
 						
-						//retry mechanism (isMemberOf) not reached
-						else 
+						if (result)
 						{
-							count +=1;
+							//retry mechanism (isMemberOf) reached
+							if (count === index)
+							{
+								//return the package signature
+								if (mode===oopsConst.PKG)
+								{
+									scope = oops[pkg];
+								}
+								
+								//return the class signature
+								else if (mode===oopsConst.CLS)
+								{
+									scope = oops[pkg][cls];
+								}
+								
+								//return the nice name of the class
+								else if (mode===oopsConst.CLS_NAME)
+								{
+									scope = cls;
+								}
+								
+								//return the name of the package
+								else if (mode===oopsConst.PKG_NAME)
+								{
+									scope = pkg;
+								}
+							}
+							
+							//retry mechanism (isMemberOf) not reached
+							else 
+							{
+								count +=1;
+							}
 						}
 					}
-				}
-			}			
+				}	
+			}
 		}
 		return scope;
 	};
@@ -396,10 +403,12 @@ function Oops (weak)
 	 * 
 	 * @param	{String}	pattern		In common cases the signature of a caller
 	 * 									to proof. (optional, default null)
+	 * 
+	 * @ignore
 	 */
 	var isMemberOfScope = function (mode,pattern)
 	{
-		var chain = chain=oopsRoot.chainOf(_address);
+		var chain = oopsRoot.chainOf(_address);
 		var count = 0;
 		var scope = self;
 		var match = false;
@@ -470,6 +479,18 @@ function Oops (weak)
 		}
 		return getScope (mode,obj);
 	};
+	
+	//für setter/method/construct (protected,internal,public)
+	//[{inject:"oopsTrait"}]
+	//[{inject:"oopsTrait",src:"oopsTraitSingleton"}]
+	//[{inject:"String",src:"oopsTraitSingleton.value"}]
+	//[{inject:"oopsTrait",src:"oopsTraitSingleton.value",target:"trait.value"}]
+	
+	//für methoden mit mehreren Argumenten
+	//[{inject:"String,uint",src:"oopsTraitSingleton.value,globalNumber"}]
+	
+	//???
+	//[{inject:"String,uint",src:"oopsTraitSingleton.value,globalNumber",singleton:true}]
 	
 	/**
 	 * @description <span style='font-size:14px;font-style:italic;font-weight:bold'>protected</span>
