@@ -1,0 +1,30 @@
+checkout www.poppy-circus.de for full project documentation
+and the download section. (jsDoc API, minified, gzip)
+
+Oops is a micro architecture framework written in javascript.
+It has no dependencies to other frameworks and works on a very
+balanced level to enlarge support on several devices.
+
+The main focus of oops is to provide a solid object orientated
+framework which implements common design patterns. Its all about
+loose coupling and structuring your code.
+
+Core Pattern
+
+Observer Pattern
+Factory Method Pattern
+Composite Pattern
+Trait Pattern
+State Pattern
+Proxy Pattern
+represents adapter, mediator or decorator
+Core Features
+
+inheritance and polymorphism
+type-safe objects
+protected scope
+internal scope
+super statement
+packages
+prevent namespace conflicts
+interferences with objects that shares the same name
