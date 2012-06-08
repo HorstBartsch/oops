@@ -320,7 +320,7 @@ function oopsStateContext (type)
 	this.hasState = function(stateId)
 	{
 		this._protected.isOrThrow ("stateId",stateId);
-		return (_states[stateId] !== null);
+		return _states.hasOwnProperty (stateId);
 	};
 	
 	/**

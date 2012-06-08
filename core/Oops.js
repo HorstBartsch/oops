@@ -3,10 +3,6 @@
 //  Oops (base object)
 //
 //--------------------------------------------------------------------------
-
-//TODO Command Pattern
-//TODO Dependency Injection
-//TODO MVCS Pattern
 	
 /**
  * @author <a href="mailto:tbusse@poppy-circus.de">Tobias Busse</a>
@@ -479,18 +475,6 @@ function Oops (weak)
 		}
 		return getScope (mode,obj);
 	};
-	
-	//für setter/method/construct (protected,internal,public)
-	//[{inject:"oopsTrait"}]
-	//[{inject:"oopsTrait",src:"oopsTraitSingleton"}]
-	//[{inject:"String",src:"oopsTraitSingleton.value"}]
-	//[{inject:"oopsTrait",src:"oopsTraitSingleton.value",target:"trait.value"}]
-	
-	//für methoden mit mehreren Argumenten
-	//[{inject:"String,uint",src:"oopsTraitSingleton.value,globalNumber"}]
-	
-	//???
-	//[{inject:"String,uint",src:"oopsTraitSingleton.value,globalNumber",singleton:true}]
 	
 	/**
 	 * @description <span style='font-size:14px;font-style:italic;font-weight:bold'>protected</span>
@@ -1109,7 +1093,8 @@ function Oops (weak)
 		
 		if (p && n)
 		{
-			result = "["+p+"."+n+"@"+_address+"]";
+			if (_address) result = "["+p+"."+n+"@"+_address+"]";
+			else result = "["+p+"."+n+"]";
 		}
 		else if (n)
 		{
@@ -1392,6 +1377,34 @@ function Oops (weak)
 		
 		return result;
 	};
+	
+	/**
+	 * @description Deconstruct the chain dependencies of an Oops instance.
+	 * 				After calling the idpsose method you cant enter the protected
+	 * 				or internal scopes. Due to the performance you should always 
+	 * 				dispose an unused reference.
+	 * 
+	 * <p>
+	 * For all objects marked as weak no dependency chain becomes created.
+	 * Those objects don't need to be disposed.
+	 * </p>
+	 * 
+	 * <p>
+	 * Some other objects are garbage collected automaticly.
+	 * Events are disposed after they become dispatched by an Eventdispatcher.
+	 * Thats why you have to clone an Event object when redispatching.
+	 * Another example for automticly garbage collected objects are Error references.
+	 * </p>
+	 *  
+	 * 
+	 * @requires oopsRoot (Toplevel)
+	 * @public
+	 */
+	this.dispose = function ()
+	{
+		oopsRoot.dispose (this);
+		_address = null;
+	}
 	
 	/**
 	 * @description Creates a string that reflects the name of a oops object.

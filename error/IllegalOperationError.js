@@ -34,7 +34,14 @@ function oopsIllegalOperationError (id,message)
 	//pre-assemple the message on id 4010
 	if (id === 4010)
 	{
-		message = message.name + "@" + message.address();
+		try
+		{
+			message = message.name + "@" + message.address();
+		}
+		catch (e)
+		{
+			
+		}
 	}
 	
 	//--------------------------------------------------------------------------

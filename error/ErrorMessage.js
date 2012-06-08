@@ -64,7 +64,7 @@ var oopsErrorMessage =
 	 * @description	e4000 defines the id of an error that is thrown 
 	 * 				on actions with invalid protected scope handling.
 	 * 
-	 * @see oopsInvalidOperationError
+	 * @see oopsIllegalOperationError
 	 * 
 	 * @constant
 	 * @type String
@@ -75,7 +75,7 @@ var oopsErrorMessage =
 	 * @description	e4001 defines the id of an error that is thrown 
 	 * 				on actions with invalid internal scope handling.
 	 * 
-	 * @see oopsInvalidOperationError
+	 * @see oopsIllegalOperationError
 	 * 
 	 * @constant
 	 * @type String
@@ -86,7 +86,7 @@ var oopsErrorMessage =
 	 * @description	e4002 defines the id of an error that is thrown 
 	 * 				on actions with invalid super scope handling.
 	 * 
-	 * @see oopsInvalidOperationError
+	 * @see oopsIllegalOperationError
 	 * 
 	 * @constant
 	 * @type String
@@ -97,7 +97,7 @@ var oopsErrorMessage =
 	 * @description	e4010 defines the id of an error that is thrown 
 	 * 				on actions with disposed oops objects.
 	 * 
-	 * @see oopsInvalidOperationError
+	 * @see oopsIllegalOperationError
 	 * @see oopsChainManager
 	 * 
 	 * @constant
@@ -109,11 +109,22 @@ var oopsErrorMessage =
 	 * @description	e4100 defines the id of an error that is thrown 
 	 * 				on actions that tries to define method scopes.
 	 * 
-	 * @see oopsInvalidOperationError
+	 * @see oopsIllegalOperationError
 	 * @see Oops
 	 * 
 	 * @constant
 	 * @type String
 	 */
-	e4100: "%msg% must be invoked within the instance."
+	e4100: "%msg% must be invoked within the instance.",
+	
+	/**
+	 * @description	e4200 defines the id of an error that is thrown 
+	 * 				on abstract method invokation.
+	 * 
+	 * @see oopsIllegalOperationError
+	 * 
+	 * @constant
+	 * @type String
+	 */
+	e4200: "%msg% should be overridden in subclasses.",	
 };

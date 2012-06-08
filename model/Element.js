@@ -52,8 +52,7 @@ function oopsElement ()
 	//
 	//  head
 	//
-	//--------------------------------------------------------------------------
-	
+	//--------------------------------------------------------------------------	
 	
 	oopsRoot.register (oopsElement);
 	this._extends = oopsEventDispatcher;

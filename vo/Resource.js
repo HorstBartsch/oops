@@ -18,11 +18,19 @@
  * that are later passed to a factory instance.
  * </p>
  * 
+ * @param {Boolean} weak	If the dependency is weak, no registration to the oops chain
+ * 							is made. When doing so, you can't use the inheritance, scope and
+ * 							type features not as well as you would setup the weak property
+ * 							to false. 
+ * 							In some cases it is a good idea to do so, eg. for exceptions 
+ * 							beause the lifetime of those objects are quit short.
+ * 							(optional, default: true)
+ * 
  * @see oopsMetadata
  * @see oopsFactory
  * @public
  */
-function oopsResource ()
+function oopsResource (weak)
 {
 	/*global oopsRoot*/
 	/*global Oops*/
@@ -34,9 +42,9 @@ function oopsResource ()
 	//
 	//--------------------------------------------------------------------------
 	
-	
+	oopsRoot.register (oopsResource);
 	this._extends = Oops;
-	this._extends (true);
+	this._extends ((weak===undefined)?true:false);
 	this._bind (oopsResource);
 		
 	

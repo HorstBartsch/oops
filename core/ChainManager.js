@@ -285,7 +285,7 @@ function oopsChainManager ()
 	 * @public
 	 */
 	this.register = function (obj)
-	{ 
+	{
 		if (! indexOf (obj))
 		{
 			_currentBuilds.push (obj);
@@ -358,7 +358,7 @@ oopsChainManager.reference = null;
  * @public
  */
 oopsChainManager.instance = function ()
-{
+{ 
 	if (!oopsChainManager.reference)
 	{
 		oopsChainManager.reference = new oopsChainManager();

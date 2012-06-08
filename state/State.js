@@ -97,6 +97,7 @@ function oopsState ()
 	/*global oopsRoot*/
 	/*global Oops*/
 	/*global oopsStateMessage*/
+	/*global oopsStateContext*/
 	
 	//--------------------------------------------------------------------------
 	//
@@ -180,7 +181,6 @@ function oopsState ()
 	 */
 	var setContext = function (value)
 	{
-		/*global oopsStateContext*/
 		self._protected.isOrThrow ("value",value,oopsStateContext);
 		_context = value;
 	};
