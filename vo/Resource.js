@@ -44,7 +44,7 @@ function oopsResource (weak)
 	
 	oopsRoot.register (oopsResource);
 	this._extends = Oops;
-	this._extends ((weak===undefined)?true:false);
+	this._extends ((weak===undefined)?true:weak);
 	this._bind (oopsResource);
 		
 	
