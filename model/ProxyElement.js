@@ -80,6 +80,7 @@ function oopsProxyElement (proxiedElement)
 	this._protected.setSuper ("traitTypes",this.traitTypes);
 	this._protected.setSuper ("hasTrait",this.hasTrait);
 	this._protected.setSuper ("getTrait",this.getTrait);
+	this._protected.setSuper ("disposeElement",this.dispose);
 	
 	
 	//--------------------------------------------------------------------------
@@ -173,7 +174,7 @@ function oopsProxyElement (proxiedElement)
 	 */
 	this.setProxiedElement = function (value)
 	{
-		this._protected.isOrThrow ("traitType",value);
+		this._protected.isOrThrow ("value",value);
 		
 		if (_proxiedElement)
 		{
@@ -183,7 +184,7 @@ function oopsProxyElement (proxiedElement)
 			_proxiedElement.removeEventListener (oopsTraitEvent.ADD, this._protected.onProxiedEvent);
 			_proxiedElement.removeEventListener (oopsTraitEvent.REMOVE, this._protected.onProxiedEvent);
 		}
-	
+		
 		_proxiedElement = value; 		
 		_proxiedElement.addEventListener (oopsMetadataEvent.ADD, this._protected.onProxiedEvent);
 		_proxiedElement.addEventListener (oopsMetadataEvent.CHANGE, this._protected.onProxiedEvent);
@@ -192,6 +193,29 @@ function oopsProxyElement (proxiedElement)
 		_proxiedElement.addEventListener (oopsTraitEvent.REMOVE, this._protected.onProxiedEvent);
 	};
 	
+	//--------------------------------------------------------------------------
+	//
+	//  publicity (methods, overridden Oops)
+	//
+	//--------------------------------------------------------------------------
+	
+		
+	/**
+	 * @description <span style='font-size:14px;font-style:italic;font-weight:bold'>override</span>
+	 * 				Deconstruct the chain dependencies of an ProxyElement
+	 * 				reference, the proxied element and the attached traits. 
+	 * 				The related resource and metadata are not disposed!
+	 * 
+	 * @public
+	 */
+	this.dispose = function ()
+	{
+		if (_proxiedElement)
+		{
+			_proxiedElement.dispose();
+		}
+		this._super.disposeElement ();		
+	};
 	
 	//--------------------------------------------------------------------------
 	//

@@ -142,7 +142,7 @@ function oopsStatusEvent (type,state,message)
 	 */
 	this.clone = function ()
 	{
-		return new oopsStatusEvent (this.type(),this.state(),this.message());
+		return new oops.event.StatusEvent (this.type(),this.state(),this.message());
 	};
 	
 	

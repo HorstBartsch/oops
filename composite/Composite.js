@@ -20,9 +20,7 @@
 function oopsComposite (id)
 {
 	/*global oopsRoot*/
-	/*global oopsComponent*/
-	/*global oopsRangeError*/
-	/*global oopsArgumentError*/
+	/*global oops*/
 	
 	//--------------------------------------------------------------------------
 	//
@@ -53,6 +51,14 @@ function oopsComposite (id)
 	 */
 	var _components = [];
 	
+	//--------------------------------------------------------------------------
+	//
+	//  scopes
+	//
+	//--------------------------------------------------------------------------
+	
+	this._protected.setSuper ("dispose", this.dispose);
+	
 	
 	//--------------------------------------------------------------------------
 	//
@@ -74,6 +80,29 @@ function oopsComposite (id)
 		return _components.length;
 	};
 	
+	//--------------------------------------------------------------------------
+	//
+	//  publicity (methods, overridden Oops)
+	//
+	//--------------------------------------------------------------------------
+	
+		
+	/**
+	 * @description <span style='font-size:14px;font-style:italic;font-weight:bold'>override</span>
+	 * 				Deconstruct the chain dependencies of a Composite
+	 * 				reference and all children.
+	 * 
+	 * @public
+	 */
+	this.dispose = function ()
+	{
+		for (var i=0; i<_components.length; i+=1)
+		{
+			_components[i].dispose ();
+		}
+		
+		this._super.dispose ();
+	};
 	
 	//--------------------------------------------------------------------------
 	//
@@ -116,7 +145,7 @@ function oopsComposite (id)
 		
 		if (fromIndex >= this.numChildren || fromIndex < 0)
 		{			
-			throw new oopsRangeError (3000,fromIndex);
+			throw new oops.error.RangeError (3000,fromIndex);
 		}
 		
 		return _components.indexOf(component,fromIndex)	;
@@ -159,7 +188,7 @@ function oopsComposite (id)
 		
 		if (fromIndex >= this.numChildren || fromIndex < 0)
 		{
-			throw new oopsRangeError (3000,fromIndex);
+			throw new oops.error.RangeError (3000,fromIndex);
 		}
 		
 		return  _components.lastIndexOf(component,fromIndex);
@@ -183,12 +212,12 @@ function oopsComposite (id)
 	{
 		if (index === undefined)
 		{
-			throw new oopsArgumentError (2000, "index");
+			throw new oops.error.ArgumentError (2000, "index");
 		}
 		
 		if (index >= this.numChildren() || index < 0)
 		{
-			throw new oopsRangeError (3000, "index");
+			throw new oops.error.RangeError (3000, "index");
 		}
 		
 		return _components[index];
@@ -299,12 +328,12 @@ function oopsComposite (id)
 		
 		if (index === undefined)
 		{
-			throw new oopsArgumentError (2000, "index");
+			throw new oops.error.ArgumentError (2000, "index");
 		}
 		
 		if (index > this.numChildren || index < 0)
 		{
-			throw new oopsRangeError (3000, "index");
+			throw new oops.error.RangeError (3000, "index");
 		}
 		
 		component._internal.setParent (this);

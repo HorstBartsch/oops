@@ -180,7 +180,7 @@ function oopsEvent (type)
 	 */
 	this.clone = function ()
 	{
-		return new oopsEvent (this.type());
+		return new oops.event.Event (this.type());
 	};
 	
 	

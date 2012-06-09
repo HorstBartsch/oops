@@ -47,7 +47,7 @@
 function oopsChainManager ()
 {
 	/*global Oops*/
-	/*global oopsError*/
+	/*global oops*/
 	
 	//--------------------------------------------------------------------------
 	//
@@ -155,7 +155,10 @@ function oopsChainManager ()
 		//apply garbage collection
 		for (var address in _garbageCollection)
 		{
-			oopsChainManager.instance().dispose (_garbageCollection[address]);
+			if (_garbageCollection.hasOwnProperty(address))
+			{
+				oopsChainManager.instance().dispose (_garbageCollection[address]);
+			}
 		}		
 		_garbageCollection = {};
 		

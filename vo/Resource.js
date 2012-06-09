@@ -34,7 +34,7 @@ function oopsResource (weak)
 {
 	/*global oopsRoot*/
 	/*global Oops*/
-	/*global oopsMetadata*/
+	/*global oops*/
 	
 	//--------------------------------------------------------------------------
 	//
@@ -63,7 +63,7 @@ function oopsResource (weak)
 	 * @private
 	 * @ignore
 	 */
-	var _metadata = new oopsMetadata ();
+	var _metadata = new oops.vo.Metadata ();
 	
 	
 	//--------------------------------------------------------------------------

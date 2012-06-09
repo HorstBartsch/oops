@@ -187,7 +187,6 @@
 function Oops (weak)
 {
 	/*global oopsRoot*/
-	/*global oopsArgumentError*/
 	/*global oopsConst*/
 	/*global oops*/
 	
@@ -529,7 +528,7 @@ function Oops (weak)
 	{
 		if (value === undefined)
 		{
-			throw new oopsArgumentError (2000, name);
+			throw new oops.error.ArgumentError (2000, name);
 		}
 		
 		if (signature)
@@ -538,13 +537,13 @@ function Oops (weak)
 			{
 				if (!value.is (signature))
 				{
-					throw new oopsTypeError (1000, signature.name + " in " + name);
+					throw new oops.error.TypeError (1000, signature.name + " in " + name);
 				}
 			}
 			
 			catch (e)
 			{
-				throw new oopsTypeError (1000, signature.name + " in " + name);
+				throw new oops.error.TypeError (1000, signature.name + " in " + name);
 			}
 		}
 	};
@@ -605,7 +604,7 @@ function Oops (weak)
 		}
 		else 
 		{
-			throw new oopsIllegalOperationError (4100, "setProtected");
+			throw new oops.error.IllegalOperationError (4100, "setProtected");
 		}
 	};
 	
@@ -664,7 +663,7 @@ function Oops (weak)
 		}
 		else 
 		{
-			throw new oopsIllegalOperationError (4100, "setInternal");
+			throw new oops.error.IllegalOperationError (4100, "setInternal");
 		}
 	};
 	
@@ -715,7 +714,7 @@ function Oops (weak)
 		}
 		else 
 		{
-			throw new oopsIllegalOperationError (4100, "setSuper");
+			throw new oops.error.IllegalOperationError (4100, "setSuper");
 		}
 	};	
 	
@@ -855,7 +854,7 @@ function Oops (weak)
 				//caller not allowed to call
 				else
 				{
-					throw new oopsIllegalOperationError (scope,name);
+					throw new oops.error.IllegalOperationError (scope,name);
 				}
 				
 				//return the processed result of the nested method if exisits
@@ -1093,8 +1092,14 @@ function Oops (weak)
 		
 		if (p && n)
 		{
-			if (_address) result = "["+p+"."+n+"@"+_address+"]";
-			else result = "["+p+"."+n+"]";
+			if (_address)
+			{
+				result = "["+p+"."+n+"@"+_address+"]";
+			}
+			else
+			{
+				result = "["+p+"."+n+"]";
+			}
 		}
 		else if (n)
 		{
@@ -1308,9 +1313,15 @@ function Oops (weak)
 				{
 					chain = oopsRoot.chainOf(_address);
 					
-					for (var i=0; i<chain.length; i++)
+					for (var i=0; i<chain.length; i+=1)
 					{
-						pkg = getScope(oopsConst.PKG, chain[i].name);
+						/*
+						 * was chain[i].name
+						 * the previous pattern was not enough to validated the correct scope
+						 * using only the name will produce a wrong scope e.g:
+						 * extends Element -> find ElementCreator -> returns factory package instead of model package
+						 */
+						pkg = getScope(oopsConst.PKG, "function"+chain[i].name+"(");
 						
 						if (pkg)
 						{
@@ -1372,7 +1383,7 @@ function Oops (weak)
 		
 		else
 		{
-			throw new oopsIllegalOperationError (4010, this);
+			throw new oops.error.IllegalOperationError (4010, this);
 		}
 		
 		return result;
@@ -1404,7 +1415,7 @@ function Oops (weak)
 	{
 		oopsRoot.dispose (this);
 		_address = null;
-	}
+	};
 	
 	/**
 	 * @description Creates a string that reflects the name of a oops object.

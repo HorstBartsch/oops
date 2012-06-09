@@ -126,5 +126,5 @@ var oopsErrorMessage =
 	 * @constant
 	 * @type String
 	 */
-	e4200: "%msg% should be overridden in subclasses.",	
+	e4200: "%msg% should be overridden in subclasses."
 };

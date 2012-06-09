@@ -41,12 +41,7 @@
 function oopsElement ()
 {
 	/*global oopsRoot*/
-	/*global oopsMetadataEvent*/
-	/*global oopsTraitEvent*/
-	/*global oopsTrait*/
-	/*global oopsEventDispatcher*/
-	/*global oopsElementType*/
-	/*global oopsResource*/
+	/*global oops*/
 	
 	//--------------------------------------------------------------------------
 	//
@@ -135,7 +130,8 @@ function oopsElement ()
 	};
 	
 	this._protected.setProtected ("setType", setType);
-	this._protected.setType (oopsElementType.DEFAULT);	
+	this._protected.setType (oops.model.ElementType.DEFAULT);	
+	this._protected.setSuper ("dispose", this.dispose);
 	
 	
 	//--------------------------------------------------------------------------
@@ -172,7 +168,7 @@ function oopsElement ()
 	{
 		if (!_resource)
 		{
-			_resource = new oopsResource();
+			_resource = new oops.vo.Resource();
 		}
 		return _resource;
 	};
@@ -211,6 +207,34 @@ function oopsElement ()
 	this.traitTypes = function ()
 	{
 		return _traitTypes.concat();
+	};
+	
+	//--------------------------------------------------------------------------
+	//
+	//  publicity (methods, overridden Oops)
+	//
+	//--------------------------------------------------------------------------
+	
+		
+	/**
+	 * @description <span style='font-size:14px;font-style:italic;font-weight:bold'>override</span>
+	 * 				Deconstruct the chain dependencies of an Element reference 
+	 * 				and the attached traits. The related resource and metadata 
+	 * 				are not disposed!
+	 * 
+	 * @public
+	 */
+	this.dispose = function ()
+	{
+		for (var prop in _traits)
+		{
+			if (_traits.hasOwnProperty (prop))
+			{
+				_traits[prop].dispose ();
+			}			
+		}
+		
+		this._super.dispose ();		
 	};
 	
 	
@@ -253,15 +277,15 @@ function oopsElement ()
 	 */
 	this.addMetadata = function(key,value)
 	{
-		var type = oopsMetadataEvent.ADD;
+		var type = oops.event.MetadataEvent.ADD;
 		
 		if (this.resource().getValueOf(key))
 		{
-			type = oopsMetadataEvent.CHANGE;
+			type = oops.event.MetadataEvent.CHANGE;
 		}
 		
 		this.resource().setValue (key,value);
-		this.dispatchEvent (new oopsMetadataEvent(type,key,value));
+		this.dispatchEvent (new oops.event.MetadataEvent(type,key,value));
 	};
 	
 	/** 
@@ -279,7 +303,7 @@ function oopsElement ()
 	this.removeMetadata = function(key)
 	{
 		this.resource().removeValueOf (key);
-		this.dispatchEvent (new oopsMetadataEvent(oopsMetadataEvent.REMOVE,key));
+		this.dispatchEvent (new oops.event.MetadataEvent(oops.event.MetadataEvent.REMOVE,key));
 	};
 	
 	/** 
@@ -341,7 +365,7 @@ function oopsElement ()
 		_traits[type] = trait;
 		_traitTypes.push (type);
 		
-		this.dispatchEvent (new oopsTraitEvent(oopsTraitEvent.ADD, type));
+		this.dispatchEvent (new oops.event.TraitEvent(oops.event.TraitEvent.ADD, type));
 	};
 	
 	/** 
@@ -372,7 +396,7 @@ function oopsElement ()
 			_traitTypes.splice(_traitTypes.indexOf(type),1);
 			delete _traits[type];
 			
-			this.dispatchEvent (new oopsTraitEvent(oopsTraitEvent.REMOVE, type));			
+			this.dispatchEvent (new oops.event.TraitEvent(oops.event.TraitEvent.REMOVE, type));			
 		}	
 		
 		return trait;

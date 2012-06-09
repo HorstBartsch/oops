@@ -235,7 +235,7 @@ function oopsStateContext (type)
 		self._protected.isOrThrow ("stateId",stateId);
 		
 		_currentState = _states[stateId];
-		self.dispatchEvent(new oopsStatusEvent(oopsStatusEvent.CHANGE,_currentState));	
+		self.dispatchEvent(new oops.event.StatusEvent(oops.event.StatusEvent.CHANGE,_currentState));	
 	};
 	
 	/**
@@ -269,7 +269,7 @@ function oopsStateContext (type)
 	var invalidate = function (message)
 	{
 		self._protected.isOrThrow ("message",message);		
-		self.dispatchEvent(new oopsStatusEvent(oopsStatusEvent.FAILED,_currentState,message));	
+		self.dispatchEvent(new oops.event.StatusEvent(oops.event.StatusEvent.FAILED,_currentState,message));	
 	};	
 	
 	this._protected.setInternal ("processTransition", processTransition);	
@@ -278,6 +278,7 @@ function oopsStateContext (type)
 	this._protected.setProtected ("process", process);	
 	this._protected.setProtected ("processSilent", processSilent);	
 	this._protected.setProtected ("invalidate", invalidate);
+	this._protected.setSuper ("dispose", this.dispose);
 	
 	
 	//--------------------------------------------------------------------------
@@ -297,6 +298,33 @@ function oopsStateContext (type)
 	this.state = function ()
 	{
 		return _currentState;
+	};
+	
+	
+	//--------------------------------------------------------------------------
+	//
+	//  publicity (methods, overridden Oops)
+	//
+	//--------------------------------------------------------------------------	
+		
+	/**
+	 * @description <span style='font-size:14px;font-style:italic;font-weight:bold'>override</span>
+	 * 				Deconstruct the chain dependencies of a StateContext reference 
+	 * 				and the attached states. 
+	 * 
+	 * @public
+	 */
+	this.dispose = function ()
+	{
+		for (var prop in _states)
+		{
+			if (_states.hasOwnProperty(prop))
+			{
+				_states[prop].dispose ();
+			}
+		}
+		
+		this._super.dispose ();		
 	};
 	
 	

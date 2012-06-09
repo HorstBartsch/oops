@@ -122,7 +122,7 @@ function oopsTraitEvent (type,traitType)
 	 */
 	this.clone = function ()
 	{
-		return new oopsTraitEvent (this.type(),this.traitType());
+		return new oops.event.TraitEvent (this.type(),this.traitType());
 	};
 	
 	//--------------------------------------------------------------------------

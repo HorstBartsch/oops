@@ -153,7 +153,7 @@ function oopsMetadataEvent (type,key,value)
 	 */
 	this.clone = function ()
 	{
-		return new oopsMetadataEvent (this.type(),this.key(),this.value());
+		return new oops.event.MetadataEvent (this.type(),this.key(),this.value());
 	};
 	
 	

@@ -115,28 +115,6 @@ function oopsTrait (type)
 	
 	//--------------------------------------------------------------------------
 	//
-	//  publicity (method)
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 * @description Dispose a trait.
-	 * 				This method is called when you remove a trait from a model.
-	 * 				The default trait object does nothing in this case.
-	 * 				You should inherit from a <i>trait</i> to create your
-	 * 				own specific trait.
-	 * 
-	 * @see oopsElement
-	 * @public 
-	 */
-	this.dispose = function ()
-	{
-		
-	};
-	
-	
-	//--------------------------------------------------------------------------
-	//
 	//  construct
 	//
 	//--------------------------------------------------------------------------	
